@@ -3,19 +3,7 @@ from .user_model import User
 
 
 class Poll(models.Model):
-    CATEGORY_CHOICES = [
-        ('ENTERTAINMENT', 'Entretenimento'),
-        ('TECHNOLOGY', 'Tecnologia'),
-        ('SPORTS', 'Esportes'),
-        ('FOOD', 'Alimentação'),
-        ('TRAVEL', 'Viagens'),
-        ('CULTURE_ART', 'Cultura e Arte'),
-        ('POLITICS_SOCIAL', 'Política e Sociedade'),
-        ('SCIENCE_EDUCATION', 'Ciência e Educação'),
-        ('FASHION_BEAUTY', 'Moda e Beleza'),
-        ('OTHER', 'Outros')
-    ]
-
+    
     criation_date = models.DateField()
     finish_date = models.DateField()
     status = models.CharField(max_length=255, choices=[('OPEN', 'Open'), ('CLOSED', 'Closed'), ('BANNED', 'Banned'), ('ARCHIVED', 'Archived')])
@@ -23,9 +11,18 @@ class Poll(models.Model):
     description = models.CharField(max_length=255)
     privacy = models.CharField(max_length=255, choices=[('PUBLIC', 'Public'), ('HIDDEN', 'Hidden'), ('RESTRICTED', 'Restricted')])
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
-    category = models.CharField(max_length=255, choices=CATEGORY_CHOICES, default='OTHER')
+    code = models.SmallIntegerField(blank=True, null=True, unique=True)
+    category = models.CharField(max_length=255, choices=[('ENTERTAINMENT','entertainment'), ('TECHNOLOGY','technology'), ('SPORTS','sports'), ('FOOD','food'), ('TOURISM','tourism'), ('CULTURE','culture'), ('ART','art') ,('POLITICS','politics'), ('SCIENCE','science'), ('FASHION','fashion'), ('CURIOSITIES','curiosities'), ('OTHER', 'other')], default='other')
+    tags = models.CharField(max_length=255, blank=True, help_text="Coloque as telas separadas por #")
 
     @property
+    # def save(self, *args, **kwargs):
+    #     if self.privacy == 'RESTRICTED' and self.code is None:
+    #         raise ValueError("O campo 'code' é obrigatório quando privacy é 'RESTRICTED'.")
+    #     if self.privacy != 'RESTRICTED':
+    #         self.code = None  
+    #     super().save(*args, **kwargs)
+        
     def questions(self):
         return self.questionfield_set.all()
 
