@@ -12,7 +12,7 @@ class Poll(models.Model):
     privacy = models.CharField(max_length=255, choices=[('PUBLIC', 'Public'), ('HIDDEN', 'Hidden'), ('RESTRICTED', 'Restricted')])
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
     code = models.SmallIntegerField(blank=True, null=True, unique=True)
-    category = models.CharField(max_length=255, choices=[('ENTERTAINMENT','entertainment'), ('TECHNOLOGY','technology'), ('SPORTS','sports'), ('FOOD','food'), ('TOURISM','tourism'), ('CULTURE','culture'), ('ART','art') ,('POLITICS','politics'), ('SCIENCE','science'), ('FASHION','fashion'), ('CURIOSITIES','curiosities'), ('OTHER', 'other')], default='other')
+    category = models.CharField(max_length=255, choices=[('ENTERTAINMENT', 'entertainment'), ('TECHNOLOGY', 'technology'), ('SPORTS', 'sports'), ('FOOD', 'food'), ('TOURISM', 'tourism'), ('CULTURE', 'culture'), ('ART', 'art'), ('POLITICS', 'politics'), ('SCIENCE', 'science'), ('FASHION', 'fashion'), ('CURIOSITIES', 'curiosities'), ('OTHER', 'other')], default='other')
     tags = models.CharField(max_length=255, blank=True, help_text="Coloque as telas separadas por #")
 
     @property

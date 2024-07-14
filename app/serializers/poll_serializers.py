@@ -4,7 +4,7 @@ from app.models import Option, QuestionField, Poll
 class OptionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Option
-        fields = ['text']
+        fields = ['text', 'img']
 
 class QuestionFieldSerializer(serializers.ModelSerializer):
     options = OptionSerializer(many=True)
